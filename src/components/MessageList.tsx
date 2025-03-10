@@ -12,7 +12,7 @@ const MessageList: React.FC = () => {
 
   const loadMessages = async () => {
     const data = await fetchMessages();
-    const messagesArray: Message[] = Object.values(data || {}).map((msg: any) => ({
+    const messagesArray: Message[] = Object.values(data || {}).map((msg) => ({
       author: msg.author,
       message: msg.message,
     }));

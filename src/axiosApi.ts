@@ -7,6 +7,12 @@ const instance = axios.create({
   },
 });
 
+
+interface MessageData {
+  author: string;
+  message: string;
+}
+
 export const sendMessage = async (author: string, message: string) => {
   try {
     const response = await instance.post('/messages.json', { author, message });
@@ -16,9 +22,13 @@ export const sendMessage = async (author: string, message: string) => {
   }
 };
 
-export const fetchMessages = async () => {
+
+interface SMessages {
+  [key: string]: MessageData;
+}
+export const fetchMessages = async (): Promise<SMessages> => {
   try {
-    const response = await instance.get('/messages.json');
+    const response = await instance.get<SMessages>('/messages.json');
     return response.data;
   } catch (error) {
     console.error('Error fetching messages:', error);
